@@ -1,26 +1,20 @@
-import { redirect, RouteObject } from "react-router";
-import Home from ".";
-import { api } from "@/api";
-import { LocalStorage } from "@/shared/lib/classes/LocalStorage";
+import { redirect, RouteObject } from 'react-router'
+import Home from '.'
+import { AuthGuard } from '@/shared/lib/classes/AuthGuard'
+import HomeLayout from './components/layout'
 
 export const homeRoutes: RouteObject = {
   path: '',
-  index: true,
-  element: <Home />,
-  loader: async () => {
-    const token = LocalStorage.getItem<string>('token');
-    const sessionId = LocalStorage.getItem<number>('sessionId');
-    if(token) {
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
-      try {
-        const res = await api.get(`/users/${sessionId}`);
-        console.log(res);
-        return res.data;
-      } catch (error) {
-        LocalStorage.delete('id', 'token');
-        return redirect('/auth/login')
-      }
+  Component: HomeLayout,
+  children: [
+    {
+      index: true,
+      loader: () => redirect('/home'),
+    },
+    {
+      path: 'home',
+      element: <Home />,
+      loader: AuthGuard.resolve,
     }
-    return redirect('/auth/login')
-  },
+  ],
 }

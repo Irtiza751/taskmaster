@@ -1,7 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/shared/components/ui/dropdown";
-import { ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/shared/components/ui/dropdown'
+import { ChevronsUpDown } from 'lucide-react'
+import { useState } from 'react'
 
 const WORKSPACES = [
   {
@@ -19,14 +26,14 @@ const WORKSPACES = [
 ]
 
 export function WorkspaceSwitcher() {
-  const [selectedWorkspace, setSelectedWorkspace] = useState(WORKSPACES[0]);
+  const [selectedWorkspace, setSelectedWorkspace] = useState(WORKSPACES[0])
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="cursor-pointer bg-foreground/10 rounded-md p-2 flex gap-2 items-center mb-2">
+        <div className="cursor-pointer bg-foreground/5 hover:bg-foreground/8 rounded-md px-2 py-2 flex gap-2 items-center mb-2">
           <Avatar className="rounded-md">
             <AvatarImage src={selectedWorkspace.image} alt="Irtiza" />
-            <AvatarFallback className="rounded-md bg-primary text-white">
+            <AvatarFallback className="rounded-md bg-orange-500 text-white">
               {selectedWorkspace.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
@@ -34,10 +41,10 @@ export function WorkspaceSwitcher() {
           <ChevronsUpDown size={14} />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='start' className="w-[240px]">
+      <DropdownMenuContent align="start" className="w-[255px]">
         <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {WORKSPACES.map(workspace => (
+        {WORKSPACES.map((workspace) => (
           <DropdownMenuItem key={workspace.name} onClick={() => setSelectedWorkspace(workspace)}>
             <Avatar className="rounded-md">
               <AvatarImage src={workspace.image} alt="Irtiza" />
